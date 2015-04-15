@@ -230,11 +230,11 @@ bool Sudoku::isCorrect()
     if(check_result==false)
       return false;
   }
-  for(int i=0;i<12;i++)		//check cells
+  for(int i=0;i<12;i+=3)	//check cells
   {
     for(int j=0;j<12;j++)
     {
-      location =27*(i/3)+3*(i%3)+9*(j/3)+(j%3);
+      location=;
       if(readin[location]==-1)
         break;
       check_arr[j]=readin[location];
@@ -254,6 +254,7 @@ bool Sudoku::ssolve()
   {
     if(isCorrect())
     {
+      cout<<"dd\n";
       return true;
     }
     else
@@ -265,7 +266,7 @@ bool Sudoku::ssolve()
     {
       setElement(firstZero,num);
       if(ssolve())
-        return true;
+        return true;  
     }
     return false;
   }
