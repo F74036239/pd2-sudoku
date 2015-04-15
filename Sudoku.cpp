@@ -143,13 +143,12 @@ void Sudoku::GiveQuestion()		//output board
       }
   }
   //put blank
-  arr[3]=0;arr[7]=0;arr[14]=0;arr[15]=0;
-  arr[20]=0;arr[24]=0;arr[29]=0;arr[39]=0;
-  arr[42]=0;arr[42]=0;arr[42]=0;arr[42]=0;
-  arr[46]=0;arr[53]=0;arr[59]=0;arr[66]=0;
-  arr[72]=0;arr[82]=0;arr[86]=0;arr[94]=0;
-  arr[100]=0;arr[105]=0;arr[116]=0;arr[120]=0;
-  arr[127]=0;arr[133]=0;arr[140]=0;arr[143]=0;
+  arr[3]=0;arr[7]=0;arr[14]=0;
+  arr[20]=0;arr[29]=0;arr[39]=0;
+  arr[46]=0;arr[59]=0;arr[66]=0;
+  arr[72]=0;arr[86]=0;arr[94]=0;
+  arr[100]=0;arr[116]=0;arr[120]=0;
+  arr[127]=0;arr[133]=0;arr[143]=0;
   //print out
   for(i=0;i<12;i++)
   {
@@ -158,19 +157,29 @@ void Sudoku::GiveQuestion()		//output board
     cout<<endl;
   }
 } 
+/*********************************************/
 
 void Sudoku::ReadIn()   //read inputs
 {
-  int i;
-  int j;
-  
-  for(i=0;i<12;i++)
-    for(j=0;j<12;j++)
+  for(int i=0;i<12;i++)
+    for(int j=0;j<12;j++)
       cin>>readin[i*12+j];
 }
 
+void Sudoku::setElement(int index,int value)
+{
+  readin[index]=value;
+}
 
-bool Sudoku::checkUnity()
+int Sudoku::getFirstZeroIndex()
+{
+  for(int i=0;i<144;i++)
+    if(readin[i]==0)
+      return i;
+    return -1;
+}
+
+bool Sudoku::checkUnity(int ans[])
 {
   int arr_unity[9];	//counters
   
@@ -179,7 +188,7 @@ bool Sudoku::checkUnity()
 
   for(int i=0;i<12;i++)
   {	
-    if (ans[i]==-1)
+    if(ans[i]==-1)
       break;
     ++arr_unity[ans[i]-1]; //count
   }
@@ -199,7 +208,7 @@ bool Sudoku::isCorrect()
   int location;
   for(int i=0;i<144;i+=12)	//check rows
   {
-    for(j=0;j<12;j++)
+    for(int j=0;j<12;j++)
     {
       if(readin[i+j]==-1)
         break;
@@ -212,16 +221,22 @@ bool Sudoku::isCorrect()
   for(int i=0;i<12;i++)		//check columns
   {
     for(int j=0;j<12;j++)
-      check_arr[j]=readin[i+9*j];
+    {  
+      if(readin[i+12*j]==-1)
+        break;
+      check_arr[j]=readin[i+12*j];
+    }
     check_result=checkUnity(check_arr);
     if(check_result==false)
       return false;
   }
-  for(int i=0;i<9;i++)		//check cells
+  for(int i=0;i<12;i++)		//check cells
   {
-    for(int j=0;j<9;j++)
+    for(int j=0;j<12;j++)
     {
       location =27*(i/3)+3*(i%3)+9*(j/3)+(j%3);
+      if(readin[location]==-1)
+        break;
       check_arr[j]=readin[location];
     }
     check_result=checkUnity(check_arr);
@@ -231,16 +246,14 @@ bool Sudoku::isCorrect()
   return true;
 }
 
-void Sudoku::Solve()            //solve and output the answer
+bool Sudoku::ssolve()
 {
-  int k;			//how many solutions
   int firstZero;
-  firstZero = .getFirstZeroIndex();
+  firstZero=getFirstZeroIndex();
   if(firstZero==-1)
   {
-    if(.isCorrect())
+    if(isCorrect())
     {
-      answer = question;
       return true;
     }
     else
@@ -248,21 +261,28 @@ void Sudoku::Solve()            //solve and output the answer
   }
   else
   {
-    for(int num=1;;num<=9;num++)
+    for(int num=1;num<=9;num++)
     {
-      .setElement(firstZero,num)
-      if(solve(question,answer))
+      setElement(firstZero,num);
+      if(ssolve())
         return true;
     }
     return false;
-  } 
-  cout<<k<<endl;		//output how many solutions and the answer
-  
-  for(int i=0;i<12;i++)
-  {
-    for(int j=0;j<12;j++)
-      cout<<arr[i*12+j]<<" ";
-    cout<<endl;
   }
-}      
-      
+}
+
+void Sudoku::Solve()            //solve and output the answer
+{
+  if(ssolve()==true)
+  {  
+    cout<<"1\n";
+    for(int i=0;i<12;i++)
+    {
+      for(int j=0;j<12;j++)
+        cout<<readin[i*12+j]<<" ";
+      cout<<endl;
+    }
+  }
+  else
+    cout<<"0\n";
+}  
