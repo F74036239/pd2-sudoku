@@ -7,6 +7,6 @@ main()
 {
   Sudoku ss;
   ss.ReadIn();
-//  ss.Solve();
+  ss.Solve();
   return 0;
 }
