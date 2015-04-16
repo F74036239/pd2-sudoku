@@ -17,9 +17,11 @@ void Sudoku::GiveQuestion()		//output board
   	        9,7,8,-1,-1,-1,2,3,1,4,5,6,
   	        6,4,5,-1,-1,-1,8,9,7,1,2,3,
   	        3,1,2,-1,-1,-1,5,6,4,7,8,9};
+  
   int i;
   int j;
   int k;
+  
   srand((unsigned)time(NULL));
   k=(rand()%6)+1;
   //change one
@@ -28,18 +30,18 @@ void Sudoku::GiveQuestion()		//output board
     for(i=0;i<12;i++)
       for(j=0;j<12;j++)
       {
-        if(arr[i*12+j]==-1)
-          break;
-        switch(arr[i*12+j])
-        {
-          case 1:arr[i*12+j]=3;break;
-          case 2:arr[i*12+j]=4;break;
-          case 3:arr[i*12+j]=5;break;
-          case 4:arr[i*12+j]=6;break;
-          case 5:arr[i*12+j]=7;break;
-          case 6:arr[i*12+j]=2;break;
-          case 7:arr[i*12+j]=1;break;
-	}
+        if(arr[i*12+j]!=-1)
+        { 
+          switch(arr[i*12+j])
+          {
+            case 1:arr[i*12+j]=6;break;
+            case 2:arr[i*12+j]=4;break;
+            case 3:arr[i*12+j]=5;break;
+            case 4:arr[i*12+j]=2;break;
+            case 5:arr[i*12+j]=3;break;
+            case 6:arr[i*12+j]=1;break;
+	  }
+        }
       }
   }
   //change two
@@ -48,18 +50,18 @@ void Sudoku::GiveQuestion()		//output board
     for(i=0;i<12;i++)
       for(j=0;j<12;j++)
       {
-        if(arr[i*12+j]==-1)
-          break;
-        switch(arr[i*12+j])
+        if(arr[i*12+j]!=-1)
         {
-          case 4:arr[i*12+j]=8;break;
-          case 5:arr[i*12+j]=9;break;
-          case 6:arr[i*12+j]=4;break;
-          case 7:arr[i*12+j]=5;break;
-          case 8:arr[i*12+j]=6;break;
-          case 9:arr[i*12+j]=1;break;
-          case 1:arr[i*12+j]=7;break;
-	}
+          switch(arr[i*12+j])
+          {
+            case 4:arr[i*12+j]=8;break;
+            case 5:arr[i*12+j]=9;break;
+            case 6:arr[i*12+j]=7;break;
+            case 7:arr[i*12+j]=6;break;
+            case 8:arr[i*12+j]=4;break;
+            case 9:arr[i*12+j]=5;break;
+	  }
+        }
      }
   }   
   //change three
@@ -68,18 +70,18 @@ void Sudoku::GiveQuestion()		//output board
     for(i=0;i<12;i++)
       for(j=0;j<12;j++)
       {
-        if(arr[i*12+j]==-1)
-          break;
-        switch(arr[i*12+j])
+        if(arr[i*12+j]!=-1)
         {
-          case 1:arr[i*12+j]=7;break;
-          case 2:arr[i*12+j]=8;break;
-          case 3:arr[i*12+j]=9;break;
-          case 4:arr[i*12+j]=2;break;
-          case 9:arr[i*12+j]=3;break;
-          case 8:arr[i*12+j]=1;break;
-          case 7:arr[i*12+j]=4;break;
-	}
+          switch(arr[i*12+j])
+          {
+            case 1:arr[i*12+j]=8;break;
+            case 2:arr[i*12+j]=4;break;
+            case 3:arr[i*12+j]=9;break;
+            case 4:arr[i*12+j]=2;break;
+            case 9:arr[i*12+j]=3;break;
+            case 8:arr[i*12+j]=1;break;
+	  }
+       }
      }
   }
   //change four
@@ -88,18 +90,18 @@ void Sudoku::GiveQuestion()		//output board
     for(i=0;i<12;i++)
       for(j=0;j<12;j++)
       {
-        if(arr[i*12+j]==-1)
-          break;
-        switch(arr[i*12+j])
+        if(arr[i*12+j]!=-1)
         {
-          case 1:arr[i*12+j]=5;break;
-          case 3:arr[i*12+j]=9;break;
-          case 5:arr[i*12+j]=4;break;
-          case 7:arr[i*12+j]=1;break;
-          case 9:arr[i*12+j]=6;break;
-          case 4:arr[i*12+j]=3;break;
-          case 6:arr[i*12+j]=7;break;
-	}
+          switch(arr[i*12+j])
+          {
+            case 1:arr[i*12+j]=5;break;
+            case 3:arr[i*12+j]=6;break;
+            case 5:arr[i*12+j]=1;break;
+            case 6:arr[i*12+j]=3;break;
+            case 7:arr[i*12+j]=9;break;
+            case 9:arr[i*12+j]=7;break;
+	  }
+        }
       }
   }
   //change five
@@ -108,18 +110,18 @@ void Sudoku::GiveQuestion()		//output board
     for(i=0;i<12;i++)
       for(j=0;j<12;j++)
       {
-        if(arr[i*12+j]==-1)
-          break;
-        switch(arr[i*12+j])
+        if(arr[i*12+j]!=-1)
         {
-          case 2:arr[i*12+j]=9;break;
-          case 4:arr[i*12+j]=8;break;
-          case 6:arr[i*12+j]=4;break;
-          case 8:arr[i*12+j]=5;break;
-          case 9:arr[i*12+j]=6;break;
-          case 1:arr[i*12+j]=2;break;
-          case 5:arr[i*12+j]=1;break;
-	}
+          switch(arr[i*12+j])
+          {
+            case 1:arr[i*12+j]=9;break;
+            case 2:arr[i*12+j]=8;break;
+            case 4:arr[i*12+j]=6;break;
+            case 6:arr[i*12+j]=4;break;
+            case 8:arr[i*12+j]=2;break;
+            case 9:arr[i*12+j]=1;break;
+	  }
+        }
       }
   }
   //change six
@@ -128,27 +130,29 @@ void Sudoku::GiveQuestion()		//output board
     for(i=0;i<12;i++)
       for(j=0;j<12;j++)
       {
-        if(arr[i*12+j]==-1)
-          break;
-        switch(arr[i*12+j])
+        if(arr[i*12+j]!=-1)
         {
-          case 7:arr[i*12+j]=6;break;
-          case 4:arr[i*12+j]=9;break;
-          case 2:arr[i*12+j]=4;break;
-          case 5:arr[i*12+j]=8;break;
-          case 8:arr[i*12+j]=7;break;
-          case 9:arr[i*12+j]=2;break;
-          case 6:arr[i*12+j]=5;break;
-	}
+          switch(arr[i*12+j])
+          {
+            case 2:arr[i*12+j]=6;break;
+            case 4:arr[i*12+j]=5;break;
+            case 5:arr[i*12+j]=4;break;
+            case 6:arr[i*12+j]=2;break;
+            case 7:arr[i*12+j]=8;break;
+            case 8:arr[i*12+j]=7;break;
+	  }
+        }
       }
   }
+  
   //put blank
-  arr[3]=0;arr[7]=0;arr[14]=0;
-  arr[20]=0;arr[29]=0;arr[39]=0;
-  arr[46]=0;arr[59]=0;arr[66]=0;
-  arr[72]=0;arr[86]=0;arr[94]=0;
-  arr[100]=0;arr[116]=0;arr[120]=0;
-  arr[127]=0;arr[133]=0;arr[143]=0;
+  arr[2]=0;arr[16]=0;arr[31]=0;
+  arr[51]=0;arr[42]=0;arr[69]=0;
+  arr[72]=0;arr[87]=0;arr[107]=0;
+  arr[121]=0;arr[138]=0;arr[117]=0;
+  arr[13]=0;arr[65]=0;arr[100]=0;
+  arr[134]=0;arr[127]=0;arr[143]=0;
+  
   //print out
   for(i=0;i<12;i++)
   {
@@ -173,9 +177,12 @@ void Sudoku::setElement(int index,int value)
 
 int Sudoku::getFirstZeroIndex()
 {
+  int k=0;
   for(int i=0;i<144;i++)
+  {
     if(readin[i]==0)
       return i;
+  }
     return -1;
 }
 
@@ -186,19 +193,14 @@ bool Sudoku::checkUnity(int ans[])
   for(int i=0;i<9;i++)
     arr_unity[i]=0;	//initialize
 
-  for(int i=0;i<12;i++)
-  {	
-    if(ans[i]==-1)
-      break;
-    ++arr_unity[ans[i]-1]; //count
-  }
   for(int i=0;i<9;i++)
-  {  
+    ++arr_unity[ans[i]-1]; //count
+  
+  for(int i=0;i<9;i++) 
     if(arr_unity[i]!=1)
       return false;
-      
-    return true;
-  }
+  
+  return true;
 }
 
 bool Sudoku::isCorrect()
@@ -206,43 +208,58 @@ bool Sudoku::isCorrect()
   bool check_result;
   int check_arr[9];
   int location;
+  int k;
+
   for(int i=0;i<144;i+=12)	//check rows
   {
+    k=0;
     for(int j=0;j<12;j++)
     {
-      if(readin[i+j]==-1)
-        break;
-      check_arr[j]=readin[i+j];
+      if(readin[i+j]!=-1)
+      {
+        check_arr[k]=readin[i+j];
+        k=k+1;
+      }
     }
     check_result=checkUnity(check_arr);
     if(check_result==false)
       return false;
   }
+  
   for(int i=0;i<12;i++)		//check columns
   {
+    k=0;
     for(int j=0;j<12;j++)
     {  
-      if(readin[i+12*j]==-1)
-        break;
-      check_arr[j]=readin[i+12*j];
+      if(readin[i+12*j]!=-1)
+      {
+        check_arr[k]=readin[i+12*j];
+        k=k+1;
+      }
     }
     check_result=checkUnity(check_arr);
-    if(check_result==false)
+    if(check_result==false) 
       return false;
   }
-  for(int i=0;i<12;i+=3)	//check cells
+  
+  /* 
+  for(int i=0;i<12;i++)	//check cells
   {
+    k=0;
     for(int j=0;j<12;j++)
     {
-      location=;
-      if(readin[location]==-1)
-        break;
-      check_arr[j]=readin[location];
+      location=27*(i/3)+3*(i%3)+9*(j/3)+(j%3);
+      if(readin[location]!=-1)
+      {
+        check_arr[k]=readin[location];
+        k=k+1;
+      }
     }
     check_result=checkUnity(check_arr);
     if(check_result==false)
       return false;
   }
+ */
   return true;
 }
 
@@ -254,27 +271,32 @@ bool Sudoku::ssolve()
   {
     if(isCorrect())
     {
-      cout<<"dd\n";
+      cout<<"no zero & correct\n";
       return true;
     }
     else
+      cout<<"no zero but wrong\n";
       return false;
   }
   else
   {
+    cout<<"have zero\n";
     for(int num=1;num<=9;num++)
     {
       setElement(firstZero,num);
+      cout<<"number: "<<readin[firstZero]<<endl;
       if(ssolve())
-        return true;  
+        cout<<"have zero correct\n";  
+        return true;
     }
+    cout<<"have zero wrong\n";
     return false;
   }
-}
+}  
 
 void Sudoku::Solve()            //solve and output the answer
 {
-  if(ssolve()==true)
+/*  if(ssolve()==true)
   {  
     cout<<"1\n";
     for(int i=0;i<12;i++)
@@ -283,7 +305,9 @@ void Sudoku::Solve()            //solve and output the answer
         cout<<readin[i*12+j]<<" ";
       cout<<endl;
     }
+  
   }
   else
     cout<<"0\n";
-}  
+*/
+  
