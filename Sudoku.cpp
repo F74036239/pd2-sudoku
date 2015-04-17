@@ -146,10 +146,10 @@ void Sudoku::GiveQuestion()		//output board
   }
   
   //put blank
-  /*
   arr[2]=0;arr[16]=0;arr[31]=0;
   arr[51]=0;arr[42]=0;arr[69]=0;
   arr[72]=0;arr[87]=0;arr[107]=0;
+  /*
   arr[121]=0;arr[138]=0;arr[117]=0;
   arr[13]=0;arr[65]=0;arr[100]=0;
   arr[134]=0;arr[127]=0;arr[143]=0;
@@ -171,6 +171,7 @@ void Sudoku::ReadIn()   //read inputs
       cin>>readin[i*12+j];
 }
 
+
 void Sudoku::setElement(int index,int value)
 {
   readin[index]=value;
@@ -185,6 +186,26 @@ int Sudoku::getFirstZeroIndex()
       return i;
   }
     return -1;
+}
+void Sudoku::pre_check_row(int min,int max,int (&pre_row)[9])
+{
+  int row_check[9];
+  for(int i=0;i<9;i++)		//initialize
+    row_check[i]=0;
+  
+  for(int i=min;i<max;i++)
+  {
+    if((readin[i]!=-1)&&(readin[i]!=0))
+      ++row_check[readin[i]-1]; 
+  }
+
+  int k=0;
+  for(int i=0;i<9;i++)
+    if(row_check[i]!=1)		//check which doesn't be used
+    {  
+      pre_row[k]=i+1;
+      k=k+1;
+    }
 }
 
 bool Sudoku::checkUnity(int ans[])
@@ -210,8 +231,6 @@ bool Sudoku::isCorrect()
   int check_arr[9];
   int location;
   int k;
-  int p;
-  int n;
 
   for(int i=0;i<144;i+=12)	//check rows
   {
@@ -272,52 +291,51 @@ bool Sudoku::ssolve()
 {
   int firstZero;
   firstZero=getFirstZeroIndex();
-  if(firstZero==-1)
+  if(firstZero==-1) 	//no zero
   {
-    if(isCorrect())
-    {
-      cout<<"no zero & correct\n";
-      
-      cout<<"1\n";
-      for(int i=0;i<12;i++)
-      {
-        for(int j=0;j<12;j++)
-          cout<<readin[i*12+j]<<" ";
-        cout<<endl;
-      }
-      
+    if(isCorrect())  
+    {  
+      cout<<"correct\n";
       return true;
+    
     }
-    else
-    {
-      cout<<"no zero but wrong\n";
-      
-      cout<<"1\n";
-      for(int i=0;i<12;i++)
-      {
-        for(int j=0;j<12;j++)
-          cout<<readin[i*12+j]<<" ";
-        cout<<endl;
-      }
-    }  
-    return false;
+    else 
+    {  
+      cout<<"wrong\n";
+      return false;
+    }
   }
   else
   {
-    cout<<"have zero\n";
-    for(int num=1;num<=9;num++)
+    int pre_row[9];
+    for(int i=0;i<9;i++)
+     pre_row[i]=0;		//initialize
+    
+    switch(firstZero/12)
     {
-      setElement(firstZero,num);
-      cout<<"number: "<<firstZero<<endl;
-      cout<<"value:"<<readin[firstZero]<<endl;
-      
-      if(ssolve())
-      { 
-        cout<<"have zero correct\n";  
-	return true;
-      }
+      case 0: pre_check_row(0,12,pre_row);break;
+      case 1: pre_check_row(12,24,pre_row);break;
+      case 2: pre_check_row(24,36,pre_row);break;
+      case 3: pre_check_row(36,48,pre_row);break;
+      case 4: pre_check_row(48,60,pre_row);break;
+      case 5: pre_check_row(60,72,pre_row);break;
+      case 6: pre_check_row(72,84,pre_row);break;
+      case 7: pre_check_row(84,96,pre_row);break;
+      case 8: pre_check_row(96,108,pre_row);break;
+      case 9: pre_check_row(108,120,pre_row);break;
+      case 10:pre_check_row(120,132,pre_row);break;
+      case 11:pre_check_row(132,144,pre_row);break;
     }
-    cout<<"have zero wrong\n";
+    for(int i=0;i<9;i++)
+    {
+      if(pre_row[i]!=0)
+      {
+        setElement(firstZero,pre_row[i]);
+        cout<<"number: "<<firstZero<<"value: "<<pre_row[i]<<endl;
+      }
+      if(ssolve())
+	return true;
+    }
     return false;
   }
 }  
