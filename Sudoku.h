@@ -6,22 +6,25 @@ public:
 
   void GiveQuestion();	//output sudoku board
   void ReadIn();		//read inputs
-  void Solve();		//solve and output the answer
- 
-  void chooseZeroIndex();
+//  void Solve();		//solve and output the answer
+  bool ssolve();
+
 private:
   
   void setElement(int index,int value); 
-  void getFirstZeroIndex_I();
-  int getFirstZeroIndex_II();
   bool isCorrect();
-  void pre_check_row(int min,int max,int (&pre_row)[144]);
-//  void chooseZeroIndex();
   bool checkUnity(int arr[]);
-  bool ssolve();
   
+  int getZeroIndex();
+  void checkNumber_row(int min);
+  void checkNumber_col(int min);
+  void checkNumber_cell(int min);
+
   int readin[144];
-  int answer[144];
-  int pre_row[144];
-  int zeroIndex[144];
+  int zeroindex[144];
+  int blank;
+  int ans2[144];
+  int canUse_row[9];
+  int canUse_col[9];
+  int canUse_cell[9];
 };
