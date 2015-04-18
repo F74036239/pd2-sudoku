@@ -146,14 +146,15 @@ void Sudoku::GiveQuestion()		//output board
   }
   
   //put blank
+  
+  arr[3]=0;arr[8]=0;
   arr[2]=0;arr[16]=0;arr[31]=0;
   arr[51]=0;arr[42]=0;arr[69]=0;
   arr[72]=0;arr[87]=0;arr[107]=0;
-  /*
   arr[121]=0;arr[138]=0;arr[117]=0;
   arr[13]=0;arr[65]=0;arr[100]=0;
   arr[134]=0;arr[127]=0;arr[143]=0;
-  */
+  
   //print out
   for(i=0;i<12;i++)
   {
@@ -168,26 +169,73 @@ void Sudoku::ReadIn()   //read inputs
 {
   for(int i=0;i<12;i++)
     for(int j=0;j<12;j++)
+    {
       cin>>readin[i*12+j];
+     // answer[i*12+j]=readin[i*12+j];
+    }
 }
 
-
+void Sudoku::chooseZeroIndex()
+{
+  for(int i=0;i<144;i++)
+    pre_row[i]=0;		//initialize
+  
+  for(int i=0;i<144;i++)
+  {
+    int firstZero;
+    getFirstZeroIndex_I();
+    if(zeroIndex[i]!=0)
+    {
+      switch(zeroIndex[i]/12)
+      {
+        case 0 : pre_check_row(0,12,pre_row);break;
+        case 1 : pre_check_row(12,24,pre_row);break;
+        case 2 : pre_check_row(24,36,pre_row);break;
+        case 3 : pre_check_row(36,48,pre_row);break;
+        case 4 : pre_check_row(48,60,pre_row);break;
+        case 5 : pre_check_row(60,72,pre_row);break;
+        case 6 : pre_check_row(72,84,pre_row);break;
+        case 7 : pre_check_row(84,96,pre_row);break;
+        case 8 : pre_check_row(96,108,pre_row);break;
+        case 9 : pre_check_row(108,120,pre_row);break;
+        case 10: pre_check_row(120,132,pre_row);break;
+        case 11: pre_check_row(132,144,pre_row);break;
+      }
+    }
+  }
+}
 void Sudoku::setElement(int index,int value)
 {
   readin[index]=value;
 }
 
-int Sudoku::getFirstZeroIndex()
+void Sudoku::getFirstZeroIndex_I()
 {
   int k=0;
   for(int i=0;i<144;i++)
+    zeroIndex[i]=0;
+  
+  for(int i=0;i<144;i++)
   {
     if(readin[i]==0)
-      return i;
+    {  
+      zeroIndex[k]=i;
+      k=k+1;
+    } 
+  }
+}
+
+int Sudoku::getFirstZeroIndex_II()
+{
+  for(int i=0;i<144;i++)
+  {
+    if(readin[i]==0)
+      return i; 
   }
     return -1;
 }
-void Sudoku::pre_check_row(int min,int max,int (&pre_row)[9])
+
+void Sudoku::pre_check_row(int min,int max,int (&pre_row)[144])
 {
   int row_check[9];
   for(int i=0;i<9;i++)		//initialize
@@ -199,7 +247,7 @@ void Sudoku::pre_check_row(int min,int max,int (&pre_row)[9])
       ++row_check[readin[i]-1]; 
   }
 
-  int k=0;
+  int k=min;
   for(int i=0;i<9;i++)
     if(row_check[i]!=1)		//check which doesn't be used
     {  
@@ -290,7 +338,7 @@ bool Sudoku::isCorrect()
 bool Sudoku::ssolve()
 {
   int firstZero;
-  firstZero=getFirstZeroIndex();
+  firstZero=getFirstZeroIndex_II();
   if(firstZero==-1) 	//no zero
   {
     if(isCorrect())  
@@ -306,37 +354,44 @@ bool Sudoku::ssolve()
     }
   }
   else
-  {
-    int pre_row[9];
-    for(int i=0;i<9;i++)
-     pre_row[i]=0;		//initialize
-    
+  {  
+    int i;			//which row
     switch(firstZero/12)
     {
-      case 0: pre_check_row(0,12,pre_row);break;
-      case 1: pre_check_row(12,24,pre_row);break;
-      case 2: pre_check_row(24,36,pre_row);break;
-      case 3: pre_check_row(36,48,pre_row);break;
-      case 4: pre_check_row(48,60,pre_row);break;
-      case 5: pre_check_row(60,72,pre_row);break;
-      case 6: pre_check_row(72,84,pre_row);break;
-      case 7: pre_check_row(84,96,pre_row);break;
-      case 8: pre_check_row(96,108,pre_row);break;
-      case 9: pre_check_row(108,120,pre_row);break;
-      case 10:pre_check_row(120,132,pre_row);break;
-      case 11:pre_check_row(132,144,pre_row);break;
+      case 0 : i=0;break;
+      case 1 : i=12;break;
+      case 2 : i=24;break;
+      case 3 : i=36;break;
+      case 4 : i=48;break;
+      case 5 : i=60;break;
+      case 6 : i=72;break;
+      case 7 : i=84;break;
+      case 8 : i=96;break;
+      case 9 : i=108;break;
+      case 10: i=120;break;
+      case 11: i=132;break;
     }
-    for(int i=0;i<9;i++)
-    {
-      if(pre_row[i]!=0)
-      {
-        setElement(firstZero,pre_row[i]);
-        cout<<"number: "<<firstZero<<"value: "<<pre_row[i]<<endl;
-      }
+    
+    int d=0;		 	//how many numbers can use
+    for(int j=i;j<(i+12);j++)
+      if(pre_row[j]!=0)
+        d++;
+    
+    cout<<"d: "<<d<<endl;
+
+    for(int k=i;k<(i+d);k++)
+    {     
+      setElement(firstZero,pre_row[k]);
+      cout<<"number: "<<firstZero<<"value: "<<pre_row[k]<<endl;
+      
       if(ssolve())
-	return true;
+        return true;
     }
+    
+    cout<<"WRONG\n";
+    readin[firstZero]=0;
     return false;
+    
   }
 }  
 

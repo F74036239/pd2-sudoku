@@ -8,15 +8,20 @@ public:
   void ReadIn();		//read inputs
   void Solve();		//solve and output the answer
  
-  void pre_check_row(int min,int max,int (&pre_col)[9]);
+  void chooseZeroIndex();
 private:
   
   void setElement(int index,int value); 
-  int getFirstZeroIndex();
+  void getFirstZeroIndex_I();
+  int getFirstZeroIndex_II();
   bool isCorrect();
-//  void pre_check_col(int min,int max,int (&pre_col)[9]);
+  void pre_check_row(int min,int max,int (&pre_row)[144]);
+//  void chooseZeroIndex();
   bool checkUnity(int arr[]);
   bool ssolve();
+  
   int readin[144];
-
+  int answer[144];
+  int pre_row[144];
+  int zeroIndex[144];
 };
